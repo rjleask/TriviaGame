@@ -1,16 +1,22 @@
 body {
     margin: 0;
     padding: 0;
+    background-image: url("http://68.media.tumblr.com/tumblr_m7fjuj7ibD1r3ey0ao1_500.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 button {
-    width: 200px;
-    height: 100px;
-    background: blue;
+    font-size: 40px;
+    padding: 1%;
+    background: #2bff04;
+    border: none;
+    font-weight: bold;
+    color: #212020;
 }
 
 ul {
-    font-size: 30px;
+    font-size: 40px;
     padding: 0;
     list-style-type: none;
 }
@@ -18,23 +24,45 @@ ul {
 li {
     width: 80%;
     height: 100px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     display: inline-block;
     position: relative;
 }
 
 li:hover {
-    background: green;
+    background: #2bff04;
     cursor: pointer;
+}
+
+li:hover span {
+    color: black;
 }
 
 span {
     position: absolute;
-    top: 50%;
+    top: 25%;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
+    text-align: center;
+    color: #fff;
+}
+
+.main_header {
+    text-align: center;
+    font-size: 60px;
+    color: #2bff04;
+    border-bottom: 1px solid;
+}
+
+.game_description {
+    font-size: 20px;
+    text-align: center;
+    color: #2bff04;
+}
+
+.start_box {
     text-align: center;
 }
 
@@ -42,7 +70,7 @@ span {
     text-align: center;
 }
 
-.start_button_hide {
+.hideElement {
     display: none;
 }
 
@@ -50,16 +78,42 @@ span {
     margin-top: 10px;
     text-align: center;
     font-size: 40px;
+    padding: 0 5%;
     display: none;
+    color: #2bff04;
 }
 
-.random_question_reveal {
+.revealElement {
     display: block;
 }
 
 .container_box {
-    width: 600px;
-    height: 600px;
-    border: 1px solid red;
-    margin: 0 auto;
+    width: 800px;
+    /*border: 1px solid red;*/
+    margin: 2% auto;
+    background: #212020;
+    opacity: 0.5;
+    box-shadow: 5px 5px 16px #000000;
+}
+
+.container_box:hover {
+    opacity: 1.0;
+}
+
+.animated_git_box {
+    text-align: center;
+}
+
+.pele,
+p a {
+    display: none;
+}
+
+.jordan,
+p a {
+    display: none;
+}
+
+.revealGif {
+    display: initial;
 }
