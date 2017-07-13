@@ -8,22 +8,39 @@
      var ultPossibleAnswers = [];
      var randomQuestionHeader = $(".random_question");
      // assigning question functions here
-     var countryQuestion = jordanQuestion;
+     var bestBasketQuestion = jordanQuestion;
      var goalsScoredQuestion = peleQuestion;
+     var muhammadQuestion = aliQuestion;
      // array of all the questions to be accessed randomly
-     var allQuestionsArr = [countryQuestion, goalsScoredQuestion];
-     // takes in the current iframe for the question
-     var animatedGifHolder;
+     var allQuestionsArr = [bestBasketQuestion, goalsScoredQuestion, muhammadQuestion];
+     // takes in the current animated gif
+     var animatedGifWrong;
+     var animatedGif;
+     // container around the gif image
+     var animatedGifBox = $(".animated_gif_box");
      // updated based on what question was asked, a more descriptive answer
      var correctMessageDisplay;
+     var wrongMessageDisplay;
      // counts what question its on, incremented in the questions themselves
      var questionCounter = 1;
+     var timerNumber = 20;
+     // timer variables
+     var intervalId;
+     var interval2Id;
+     var timerNumberDisplay = $(".timer_number");
+     var questionsRight = 0;
+     var questionsWrong = 0;
+
 
      $(".start_button").on("click", function() {
          $(this).addClass("hideElement");
          $(".game_description").addClass("hideElement");
          startGame();
          randomQuestionHeader.addClass("revealElement");
+         timerNumberDisplay.addClass("revealElement");
+     });
+     $(".restart_button").on("click", function() {
+         restartGame();
      });
 
      function addLiToDom() {
@@ -42,16 +59,40 @@
      }
      // grabs a question function at random and calls it
      function startGame() {
+         if (allQuestionsArr.length < 1) {
+             randomQuestionHeader = "";
+             correctMessageDisplay = "";
+             wrongMessageDisplay = "";
+             $("#right_answer").text("Questions Right:" + questionsRight);
+             $("#wrong_answer").text("Questions Wrong:" + questionsWrong);
+             $(".end_game_results").addClass("revealElement");
+             $("#restart_button").css("display", "inline-block");
+             animatedGifBox.empty();
+         }
          var randomNumber = Math.floor(Math.random() * allQuestionsArr.length);
          allQuestionsArr[randomNumber]();
+         timerNumberDisplay.html("Time:" + timerNumber);
+         myTimer();
+
+     }
+
+     function restartGame() {
+         allQuestionsArr = [bestBasketQuestion, goalsScoredQuestion, muhammadQuestion];
+         questionsWrong = 0;
+         questionsRight = 0;
+         questionCounter = 1;
+         startGame();
      }
 
      // all the questions are below here
      function jordanQuestion() {
-         // resets rightAnswer and ultPossibleAnswers
          reset();
-         animatedGifHolder = $(".jordan");
-         allQuestionsArr.splice(0, 1);
+         // animatedGifWrong;
+         animatedGifWrong = "<img src='assets/images/jordan-wrong.gif'>";
+         animatedGif = "<img src='assets/images/jordan.gif'>";
+         // removes its index from the questions array
+         allQuestionsArr.splice(allQuestionsArr.indexOf(bestBasketQuestion), 1);
+         wrongMessageDisplay = "The right answer was Jordan...look how disappointed jordan is in your knowledge";
          // runs after the correct answer was chosen
          correctMessageDisplay = " Jordan went 6-0 in NBA title series(Lebron is 3-5) including 5mvp and 10 defensive player awards!";
          // question to be displayed in the randomquestionheader
@@ -71,8 +112,10 @@
 
      function peleQuestion() {
          reset();
-         animatedGifHolder = $("#pele1");
-         allQuestionsArr.splice(1, 1);
+         animatedGifWrong = "<img src='assets/images/pele-wrong.gif'>";
+         animatedGif = "<img src='assets/images/pele.gif'>";
+         allQuestionsArr.splice(allQuestionsArr.indexOf(goalsScoredQuestion), 1);
+         wrongMessageDisplay = "The right answer was Pele..";
          correctMessageDisplay = "Pele has scored over 1200 goals in his career, twice the amount of the current live leader Christiano Ronaldo";
          randomQuestionHeader.text("Q" + questionCounter + ":Who has scored the most goals out of these players?");
          $(".possible_answers_li").css("display", "block");
@@ -84,9 +127,28 @@
          addLiToDom();
          questionClickEventHandler();
      }
+
+     function aliQuestion() {
+         reset();
+         animatedGifWrong = "<img src='assets/images/ali-wrong.gif'>";
+         animatedGif = "<img src='assets/images/ali.gif'>";
+         allQuestionsArr.splice(allQuestionsArr.indexOf(muhammadQuestion), 1);
+         wrongMessageDisplay = "You dolt! probably should have gotten that one...";
+         correctMessageDisplay = "Ali (aka cassius clay) went 56 and 5 in his career with 37 knockouts and had a number of entertaining phrases";
+         randomQuestionHeader.text("Q" + questionCounter + ":Who was famous for saying 'float like a butterfly, sting like a bee'");
+         $(".possible_answers_li").css("display", "block");
+         var possAnswers = ["George Foreman", "Larry Bird", "Kareem Jabbar", "Muhammad Ali"];
+         rightAnswer.push(possAnswers[3]);
+         for (var i = 0; i < possAnswers.length; i++) {
+             ultPossibleAnswers.push(possAnswers[i]);
+         }
+         addLiToDom();
+         questionClickEventHandler();
+     }
      // passes in event to  questionclickhandler
      function questionClickEventHandler() {
          $("li").on("click", function(e) {
+             stopTimer();
              correctGuessChecker(e);
          });
          questionCounter++;
@@ -95,28 +157,70 @@
      function reset() {
          ultPossibleAnswers = [];
          correctMessageDisplay = "";
+         wrongMessageDisplay = "";
+         timerNumber = 20;
+         rightAnswer = [];
+         animatedGifBox.empty();
      }
      // determins if click event is right or wrong
      function correctGuessChecker(e) {
          if (e.target.innerText == rightAnswer[0]) {
+             animatedGifBox.append(animatedGif);
              randomQuestionHeader.text("Correct! " + correctMessageDisplay);
-             animatedGifHolder.addClass("revealGif");
-             animatedGifHolder.find("a").addClass("revealGif");
              $("li").addClass("hideElement");
+             questionsRight++;
+             betweenQuestionTimer()
          } else {
-             console.log("wrong");
+             questionsWrong++;
+             animatedGifBox.append(animatedGifWrong);
+             randomQuestionHeader.text("Wrong! " + wrongMessageDisplay);
+             $("li").addClass("hideElement");
+             betweenQuestionTimer();
          }
 
      }
+
+     function outOfTime() {
+         $("li").addClass("hideElement");
+         questionsWrong++;
+         animatedGifBox.append("<img src='assets/images/times-up.gif'>");
+         randomQuestionHeader.text("You ran out of time...");
+         betweenQuestionTimer();
+     }
+     // meat in the myTimer function
+     function timerDecrement() {
+         timerNumberDisplay.html("Time:" + timerNumber);
+         timerNumber--;
+         if (timerNumber < 0) {
+             stopTimer();
+             outOfTime();
+         }
+     }
+     // timers
+     // calls on decrement function every second
+     function myTimer() {
+         intervalId = setInterval(timerDecrement, 1000);
+     }
+
+     function stopTimer() {
+         clearInterval(intervalId);
+     }
+     // functions for between question timer
+     function betweenQuestionTimer() {
+         timerNumber = 10;
+         interval2Id = setInterval(betweenQuestionDecrement, 1000);
+     }
+
+     function betweenQuestionDecrement() {
+         timerNumber--;
+         timerNumberDisplay.html("Next question in:" + timerNumber);
+         if (timerNumber === 0) {
+             stopBetweenQuestionTimer();
+             startGame();
+         }
+     }
+
+     function stopBetweenQuestionTimer() {
+         clearInterval(interval2Id);
+     }
  });
-
-
- // var delayButtonAlert;
- //  $(#start).on("click",function(){
- //   delayButtonAlert = setTimeout(function(){
- // alert("dsfsfsd");
- // }, 3000);
- // });
- // $(#div).on("click",function(){
- //   clearTimeout(delayButtonAlert);
- // });

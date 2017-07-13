@@ -23,7 +23,7 @@ ul {
 
 li {
     width: 80%;
-    height: 100px;
+    height: 60px;
     /*border: 1px solid black;*/
     display: inline-block;
     position: relative;
@@ -83,6 +83,22 @@ span {
     color: #2bff04;
 }
 
+.timer_number {
+    display: none;
+    color: yellow;
+    font-size: 30px;
+    text-align: center;
+}
+
+.end_game_results {
+    display: none;
+    text-align: center;
+}
+
+.restart_button_box {
+    text-align: center;
+}
+
 .revealElement {
     display: block;
 }
@@ -100,20 +116,16 @@ span {
     opacity: 1.0;
 }
 
-.animated_git_box {
-    text-align: center;
-}
-
-.pele,
-p a {
-    display: none;
-}
-
-.jordan,
-p a {
-    display: none;
-}
-
 .revealGif {
     display: initial;
+}
+
+#restart_button {
+    display: none;
+}
+
+#right_answer,
+#wrong_answer {
+    color: yellow;
+    font-size: 30px;
 }
