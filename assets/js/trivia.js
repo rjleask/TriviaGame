@@ -39,7 +39,8 @@
          randomQuestionHeader.addClass("revealElement");
          timerNumberDisplay.addClass("revealElement");
      });
-     $(".restart_button").on("click", function() {
+     $("#restart_button").on("click", function() {
+         alert("clicked");
          restartGame();
      });
 
@@ -60,24 +61,27 @@
      // grabs a question function at random and calls it
      function startGame() {
          if (allQuestionsArr.length < 1) {
-             randomQuestionHeader = "";
-             correctMessageDisplay = "";
-             wrongMessageDisplay = "";
+             stopTimer();
+             stopBetweenQuestionTimer();
+             randomQuestionHeader.text("");
              $("#right_answer").text("Questions Right:" + questionsRight);
              $("#wrong_answer").text("Questions Wrong:" + questionsWrong);
              $(".end_game_results").addClass("revealElement");
              $("#restart_button").css("display", "inline-block");
+             allQuestionsArr = [bestBasketQuestion, goalsScoredQuestion, muhammadQuestion];
              animatedGifBox.empty();
+         } else {
+             var randomNumber = Math.floor(Math.random() * allQuestionsArr.length);
+             allQuestionsArr[randomNumber]();
+             timerNumberDisplay.html("Time:" + timerNumber);
+             myTimer();
          }
-         var randomNumber = Math.floor(Math.random() * allQuestionsArr.length);
-         allQuestionsArr[randomNumber]();
-         timerNumberDisplay.html("Time:" + timerNumber);
-         myTimer();
 
      }
 
      function restartGame() {
-         allQuestionsArr = [bestBasketQuestion, goalsScoredQuestion, muhammadQuestion];
+         $("#right_answer").css("display", "none");
+         $("#wrong_answer").css("display", "none");
          questionsWrong = 0;
          questionsRight = 0;
          questionCounter = 1;
@@ -189,9 +193,9 @@
      }
      // meat in the myTimer function
      function timerDecrement() {
-         timerNumberDisplay.html("Time:" + timerNumber);
          timerNumber--;
-         if (timerNumber < 0) {
+         timerNumberDisplay.html("Time:" + timerNumber);
+         if (timerNumber <= 0) {
              stopTimer();
              outOfTime();
          }
@@ -214,7 +218,7 @@
      function betweenQuestionDecrement() {
          timerNumber--;
          timerNumberDisplay.html("Next question in:" + timerNumber);
-         if (timerNumber === 0) {
+         if (timerNumber <= 0) {
              stopBetweenQuestionTimer();
              startGame();
          }

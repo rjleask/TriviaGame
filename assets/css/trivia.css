@@ -4,6 +4,10 @@ body {
     background-image: url("http://68.media.tumblr.com/tumblr_m7fjuj7ibD1r3ey0ao1_500.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 button {
