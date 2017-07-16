@@ -11,8 +11,13 @@
      var bestBasketQuestion = jordanQuestion;
      var goalsScoredQuestion = peleQuestion;
      var muhammadQuestion = aliQuestion;
+     var hockeyQuestion = gretzkyQuestion;
+     var swimmerQuestion = phelpsQuestion;
+     var ruthQuestion = babeQuestion;
+     var williamsQuestion = serenaQuestion;
+     var woodsQuestion = tigerQuestion;
      // array of all the questions to be accessed randomly
-     var allQuestionsArr = [bestBasketQuestion, goalsScoredQuestion, muhammadQuestion];
+     var allQuestionsArr = [bestBasketQuestion, goalsScoredQuestion, muhammadQuestion, hockeyQuestion, swimmerQuestion, ruthQuestion, williamsQuestion, woodsQuestion];
      // takes in the current animated gif
      var animatedGifWrong;
      var animatedGif;
@@ -31,7 +36,6 @@
      var questionsRight = 0;
      var questionsWrong = 0;
 
-
      $(".start_button").on("click", function() {
          $(this).addClass("hideElement");
          $(".game_description").addClass("hideElement");
@@ -40,7 +44,6 @@
          timerNumberDisplay.addClass("revealElement");
      });
      $("#restart_button").on("click", function() {
-         alert("clicked");
          restartGame();
      });
 
@@ -68,7 +71,7 @@
              $("#wrong_answer").text("Questions Wrong:" + questionsWrong);
              $(".end_game_results").addClass("revealElement");
              $("#restart_button").css("display", "inline-block");
-             allQuestionsArr = [bestBasketQuestion, goalsScoredQuestion, muhammadQuestion];
+             allQuestionsArr = [bestBasketQuestion, goalsScoredQuestion, muhammadQuestion, phelpsQuestion, hockeyQuestion, swimmerQuestion, ruthQuestion, williamsQuestion, woodsQuestion];
              animatedGifBox.empty();
          } else {
              var randomNumber = Math.floor(Math.random() * allQuestionsArr.length);
@@ -82,6 +85,7 @@
      function restartGame() {
          $("#right_answer").css("display", "none");
          $("#wrong_answer").css("display", "none");
+         $("#restart_button").css("display", "none");
          questionsWrong = 0;
          questionsRight = 0;
          questionCounter = 1;
@@ -142,6 +146,96 @@
          randomQuestionHeader.text("Q" + questionCounter + ":Who was famous for saying 'float like a butterfly, sting like a bee'");
          $(".possible_answers_li").css("display", "block");
          var possAnswers = ["George Foreman", "Larry Bird", "Kareem Jabbar", "Muhammad Ali"];
+         rightAnswer.push(possAnswers[3]);
+         for (var i = 0; i < possAnswers.length; i++) {
+             ultPossibleAnswers.push(possAnswers[i]);
+         }
+         addLiToDom();
+         questionClickEventHandler();
+     }
+
+     function gretzkyQuestion() {
+         reset();
+         animatedGifWrong = "<img src='assets/images/gretzky-wrong.gif'>";
+         animatedGif = "<img src='assets/images/gretzky.gif'>";
+         allQuestionsArr.splice(allQuestionsArr.indexOf(hockeyQuestion), 1);
+         wrongMessageDisplay = "Need to know this person if you want to be cool...Wayne Gretzky";
+         correctMessageDisplay = "'He Who Must Be Named' when talking hockey. Wayne Gretzky was/is THE hockey god, he holds or shares around 60 NHL records!";
+         randomQuestionHeader.text("Q" + questionCounter + ":Which one of these athletes is nicknamed 'The Great One'");
+         $(".possible_answers_li").css("display", "block");
+         var possAnswers = ["Babe Ruth", "Tiger Woods", "Wayne Gretzky", "Tom Brady"];
+         rightAnswer.push(possAnswers[2]);
+         for (var i = 0; i < possAnswers.length; i++) {
+             ultPossibleAnswers.push(possAnswers[i]);
+         }
+         addLiToDom();
+         questionClickEventHandler();
+     }
+
+     function phelpsQuestion() {
+         reset();
+         animatedGifWrong = "<img src='assets/images/phelps-wrong.gif'>";
+         animatedGif = "<img src='assets/images/phelps.gif'>";
+         allQuestionsArr.splice(allQuestionsArr.indexOf(swimmerQuestion), 1);
+         wrongMessageDisplay = "Good gracious gravy...where have you been";
+         correctMessageDisplay = "Surprising to see him in sports legends? you shouldnt be..39 world records, 22 olympic medals 18 of them gold";
+         randomQuestionHeader.text("Q" + questionCounter + ":Swimmer...18 olympic gold medals...Who is it!?");
+         $(".possible_answers_li").css("display", "block");
+         var possAnswers = ["Michael Phelps", "Michael Keaton", "Michael Myers", "Mike Piazza"];
+         rightAnswer.push(possAnswers[0]);
+         for (var i = 0; i < possAnswers.length; i++) {
+             ultPossibleAnswers.push(possAnswers[i]);
+         }
+         addLiToDom();
+         questionClickEventHandler();
+     }
+
+     function babeQuestion() {
+         reset();
+         animatedGifWrong = "<img src='assets/images/babe-wrong.gif'>";
+         animatedGif = "<img src='assets/images/babe.gif'>";
+         allQuestionsArr.splice(allQuestionsArr.indexOf(ruthQuestion), 1);
+         wrongMessageDisplay = "ugh...";
+         correctMessageDisplay = "In a time when the record for HR's in a career was 128, Babe Ruth came along and hit 714, oh and decided to win 100 games with 2.28 era";
+         randomQuestionHeader.text("Q" + questionCounter + ":7x world series champion, 12x home run leader nicknamed 'The Great Bambino'");
+         $(".possible_answers_li").css("display", "block");
+         var possAnswers = ["Bobby Bonilla", "Babe Ruth", "Billy Wagner", "David Ortiz"];
+         rightAnswer.push(possAnswers[1]);
+         for (var i = 0; i < possAnswers.length; i++) {
+             ultPossibleAnswers.push(possAnswers[i]);
+         }
+         addLiToDom();
+         questionClickEventHandler();
+     }
+
+     function serenaQuestion() {
+         reset();
+         animatedGifWrong = "<img src='assets/images/serena-wrong.gif'>";
+         animatedGif = "<img src='assets/images/serena.gif'>";
+         allQuestionsArr.splice(allQuestionsArr.indexOf(williamsQuestion), 1);
+         wrongMessageDisplay = "not at all good";
+         correctMessageDisplay = "Absolute dominance is how i would describe serena career 23 grandslams 4x mixed doubles finalist, 4x gold medalist";
+         randomQuestionHeader.text("Q" + questionCounter + ":This womens tennis player has won 23 grandslams........!");
+         $(".possible_answers_li").css("display", "block");
+         var possAnswers = ["Venus Williams", "Monica Seles", "Serena Williams", "Stefi Graff"];
+         rightAnswer.push(possAnswers[2]);
+         for (var i = 0; i < possAnswers.length; i++) {
+             ultPossibleAnswers.push(possAnswers[i]);
+         }
+         addLiToDom();
+         questionClickEventHandler();
+     }
+
+     function tigerQuestion() {
+         reset();
+         animatedGifWrong = "<img src='assets/images/woods-wrong.gif'>";
+         animatedGif = "<img src='assets/images/woods.gif'>";
+         allQuestionsArr.splice(allQuestionsArr.indexOf(woodsQuestion), 1);
+         wrongMessageDisplay = "unwise answer";
+         correctMessageDisplay = "By far the most dominent and exciting golfer ever, he didnt just win, he absolutely destroyed his competition. People who don't watch golf watched golf when tiger played.";
+         randomQuestionHeader.text("Q" + questionCounter + ":This golfer has spent 683 weeks as number 1 in the world, the next closest is 6 years behind...");
+         $(".possible_answers_li").css("display", "block");
+         var possAnswers = ["Jack Nicholas", "Arnald Palmer", "Jordan Spieth", "Tiger Woods"];
          rightAnswer.push(possAnswers[3]);
          for (var i = 0; i < possAnswers.length; i++) {
              ultPossibleAnswers.push(possAnswers[i]);

@@ -17,25 +17,29 @@ button {
     border: none;
     font-weight: bold;
     color: #212020;
+    letter-spacing: 3.5px;
 }
 
 ul {
     font-size: 40px;
     padding: 0;
     list-style-type: none;
+    margin: 10px 0;
 }
 
 li {
-    width: 80%;
+    width: 65%;
     height: 60px;
     /*border: 1px solid black;*/
     display: inline-block;
     position: relative;
+    white-space: nowrap;
 }
 
 li:hover {
     background: #2bff04;
     cursor: pointer;
+    border: 1px solid white;
 }
 
 li:hover span {
@@ -44,13 +48,17 @@ li:hover span {
 
 span {
     position: absolute;
-    top: 25%;
+    top: 15%;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
     text-align: center;
     color: #fff;
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 .main_header {
@@ -81,13 +89,14 @@ span {
 .random_question {
     margin-top: 10px;
     text-align: center;
-    font-size: 40px;
+    font-size: 32px;
     padding: 0 5%;
     display: none;
     color: #2bff04;
 }
 
 .timer_number {
+    margin: 10px auto;
     display: none;
     color: yellow;
     font-size: 30px;
@@ -132,4 +141,91 @@ span {
 #wrong_answer {
     color: yellow;
     font-size: 30px;
+}
+
+@media (max-width: 950px) {
+    ul {
+        font-size: 33px;
+    }
+    li {
+        height: 55px;
+    }
+    span {
+        white-space: nowrap;
+    }
+    li:focus {
+        background: #2bff04;
+    }
+    .container_box {
+        width: 600px;
+        opacity: 0.8;
+    }
+    .timer_number {
+        font-size: 27px;
+        margin: 10px auto;
+    }
+}
+
+@media (max-width: 630px) {
+    button {
+        font-size: 35px
+    }
+    li {
+        height: 51px;
+    }
+    .container_box {
+        width: 100%;
+    }
+    .main_header {
+        font-size: 45px;
+    }
+    .random_question {
+        font-size: 35px;
+    }
+}
+
+@media (max-width: 450px) {
+    button {
+        font-size: 20px;
+    }
+    li {
+        height: 55px;
+    }
+    span {
+        top: 15%;
+    }
+    ul {
+        font-size: 22px;
+    }
+    .timer_number {
+        font-size: 25px;
+    }
+    .main_header {
+        font-size: 220%;
+    }
+    .random_question {
+        font-size: 27px;
+    }
+    .game_description {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 350px) {
+    li {
+        height: 41px;
+    }
+    ul {
+        font-size: 16px;
+    }
+    .timer_number {
+        font-size: 20px;
+    }
+    .random_question {
+        font-size: 20px;
+    }
+    #right_answer,
+    #wrong_answer {
+        font-size: 25px;
+    }
 }
